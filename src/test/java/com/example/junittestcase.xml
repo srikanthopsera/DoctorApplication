@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build') {
+            steps {
+                // Your build steps go here
+                // For example: Maven, Gradle, etc.
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                // Run your tests and generate JUnit XML reports
+                sh 'your_test_command --output-format=junit --output-file=test-results.xml'
+            }
+            post {
+                always {
+                    // Publish JUnit test results
+                    junit 'test-results.xml'
+                }
+            }
+        }
+        
+        // Other stages for deployment, etc.
+    }
+}
